@@ -1,0 +1,98 @@
+# Copyright 2023 The looper Authors. All rights reserved.
+# Use of this source code is governed by a MIT
+# license that can be found in the LICENSE file.
+
+---
+run:
+  timeout: 1m
+  skip-files:
+    - metric/core.go
+
+linters:
+  enable-all: true
+  disable:
+    - wrapcheck
+    - testpackage
+    - contextcheck
+    - gochecknoglobals
+    - exhaustivestruct
+    - exhaustruct
+    - paralleltest
+    - godox
+    - cyclop
+    - tagliatelle
+    - goerr113
+    - varnamelen
+    - ireturn
+    - exhaustive
+    - dupword
+  fast: false
+
+# Settings for specific linters
+linters-settings:
+  funlen:
+    lines: 175
+    statements: 80
+
+  nestif:
+    min-complexity: 8
+
+issues:
+  exclude-rules:
+    - path: cmd/
+      linters:
+        - gochecknoinits
+        - gomnd
+        - forbidigo
+        - errcheck
+        - lll
+        - goconst
+        - gomnd
+
+    - path: example_test.go
+      linters:
+        - lll
+
+    - path: github/github.go
+      linters:
+        - gomnd
+
+    - path: util/
+      linters:
+        - gomnd
+        - gocognit
+        - gocyclo
+        - funlen
+        - maintidx
+        - dupl
+        - goconst
+        - complexity
+        - nestif
+
+    - path: _test\.go
+      linters:
+        - scopelint
+        - wsl
+        - nlreturn
+        - funlen
+        - dupl
+        - gocognit
+        - maintidx
+        - maligned
+        - goconst
+
+    - path: doc.go
+      linters:
+        - lll
+
+    - linters:
+        - lll
+      source: "json:"
+
+    - linters:
+        - gocritic
+        - godot
+      source: "//////"
+    - linters:
+        - gosec
+      text: "G112:"
